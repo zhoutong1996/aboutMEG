@@ -1,17 +1,23 @@
 <!-- TOC -->
 
+- [[Expirement]实验相关的数据集，操作等等小记](#expirement%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86%E6%93%8D%E4%BD%9C%E7%AD%89%E7%AD%89%E5%B0%8F%E8%AE%B0)
 - [[Classification]Adaptive neural network classifier for decoding MEG signals](#classificationadaptive-neural-network-classifier-for-decoding-meg-signals)
     - [网络结构](#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84)
     - [训练](#%E8%AE%AD%E7%BB%83)
     - [数据](#%E6%95%B0%E6%8D%AE)
+- [[Classification]Assessing impact of channel selection on decoding of motor and cognitive imagery from MEG data](#classificationassessing-impact-of-channel-selection-on-decoding-of-motor-and-cognitive-imagery-from-meg-data)
 - [[Database]CAM-CAN DATABASE](#databasecam-can-database)
     - [MEG session（BIDS standard）](#meg-sessionbids-standard)
 - [[CNN Improvement]Signals2Image](#cnn-improvementsignals2image)
     - [EEG signal2Image](#eeg-signal2image)
     - [Brain2Image: Converting Brain Signals into Images](#brain2image-converting-brain-signals-into-images)
 - [[SVM] SVM on E/MEG](#svm-svm-on-emeg)
+    - [Across-subject offline decoding of motor imagery from MEG and EEG](#across-subject-offline-decoding-of-motor-imagery-from-meg-and-eeg)
 
 <!-- /TOC -->
+
+# [Expirement]实验相关的数据集，操作等等小记
+
 # [Classification]Adaptive neural network classifier for decoding MEG signals
 + 感觉诱发反应，感觉诱发反应的空间形貌可能因受试者而异，但其潜伏期可能相对恒定。/事件相关震荡响应相反，事件相关(诱导)振荡响应的相位在不同试验中可能会有相当大的变化，而其光谱内容和空间分布保持相同。
 + MEG数据 n X t,n是传感器数量，t是测量的时间点
@@ -37,6 +43,35 @@ MEG数据的分类(例如，Gramfort等人，2013b；Westner等人，2018年)。
 + 实验2：3类运动表象任务中事件相关振荡活动的分类。(详情见Halme和Parkkonen，2018年)
 + 实验3：实时运动图像脑机接口
 + 实验4：在CamCAN数据集上对两种类型的感觉刺激进行分类。(被动)视听任务，该任务包括120次单峰刺激试验(60次视觉刺激
+
+# [Classification]Assessing impact of channel selection on decoding of motor and cognitive imagery from MEG data
+
+    Motor imagery (MI)运动图像的分类
+    与102个磁力计相比，选择204个梯度计可提供更高的SNR，因为该梯度计对更靠近头皮的皮层激活变化率更为敏感。 
+    数据集包括四个心理成像任务：手运动，脚运动，减法和单词生成。每个环节包括针对每个图像任务的50次试验，共200次试验。
+    对于特征提取，数据从1 kHz下采样到500 Hz。经过预处理后，从每个实验中选择与图像活动相关的3.5s的数据段(提示后0.5s)，并分别为每个任务的每个脑磁图梯度计通道(即手、脚、数学和文字生成)估计信号功率。
+- 使用线性判别分析(LDA)分类器对6个二元分类任务(即手与脚(H-F)、手与字(H-W)、手与数学(H-M)、脚与字(F-W)、脚与数学(F-M)和字与数学(W-M))进行了10倍交叉验证CA估计
+- 信道选择方法
+   - 类别相关性 class-correlation method
+   - 随机森林RF
+   - 无限潜在特征选择(ILFS)
+   - RandF based ranking
+- CSP进行二分类的特征提取
+
+结论：
+- 通道选择会提高精度
+- 运动和认知图像（h-w）的分类效果比纯运动（h-f）或认知图像（w-m）效果好
+- 使用α（8–12 Hz），β（13–30 Hz）或宽带（α+ β）（8–30 Hz）。还观察到，α频段的性能优于β和宽带频段。
+- 通道下降1-25不等
+
+# [Database] Human Connectome Project（HCP,人类连接计划） with MEG  
+- 设备：4D Neuroimaging，不同于306那个设备。248mag磁力计channels（问题，磁力计的snr不如grad梯度计），23个参考通道，2034.5101Hz采样率？
+- Data Type：
+   - Reating State MEG（rMEG）：在每个实验阶段的开始时，将收集三次连续的rMEG运行，在此期间，指示受试者静静地躺着，并注视眼睛。
+   - TASK MEG(tMEG):三种实验范式将用于提供有关感觉运动，工作记忆和语言处理的数据。
+      - 在感觉运动任务中，参与者执行简单的手或脚运动。视觉提示指示哪一侧的肢体，主要在α（μ），β和γ带
+      - 在工作记忆任务中，向参与者展示工具或面孔的图片，工作记忆任务主要激活前额叶和顶叶皮层区域，匹配和不匹配响应分别通过右食指和右中指按钮的按下来记录。
+      - 语言处理任务，受试者将听取听觉叙述（持续30 s）或匹配持续时间的简单算术问题，然后听一个2选的强迫选择问题。受试者将通过按下右手按钮（食指或中指）做出反应。对MEG来说比较复杂
 
 # [Database]CAM-CAN DATABASE 
 ## MEG session（BIDS standard）
@@ -67,4 +102,15 @@ MEG数据的分类(例如，Gramfort等人，2013b；Westner等人，2018年)。
 + 特征提取和分类：空间滤波和LDA。在CSP滤波之前，使用空间谱分解(SSD)对数据进行降维。
 
 
+# [模型]增量学习
+
+当数据持续出现的时候，模型是否能对过往的数据保持记忆功能，同时又能拟合新来的数据。在test data上用
+
+问题介绍：
+
+![增量学习问题介绍](./pics/增量学习问题介绍.png)
+
+解决思路：
+
+![增量学习解决思路.png](./pics/增量学习解决思路.png)
 
