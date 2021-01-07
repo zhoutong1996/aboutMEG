@@ -6,6 +6,7 @@
     - [训练](#%E8%AE%AD%E7%BB%83)
     - [数据](#%E6%95%B0%E6%8D%AE)
 - [[Classification]Assessing impact of channel selection on decoding of motor and cognitive imagery from MEG data](#classificationassessing-impact-of-channel-selection-on-decoding-of-motor-and-cognitive-imagery-from-meg-data)
+- [[Database] Human Connectome Project（HCP,人类连接计划） with MEG](#database-human-connectome-projecthcp%E4%BA%BA%E7%B1%BB%E8%BF%9E%E6%8E%A5%E8%AE%A1%E5%88%92-with-meg)
 - [[Database]CAM-CAN DATABASE](#databasecam-can-database)
     - [MEG session（BIDS standard）](#meg-sessionbids-standard)
 - [[CNN Improvement]Signals2Image](#cnn-improvementsignals2image)
@@ -13,6 +14,9 @@
     - [Brain2Image: Converting Brain Signals into Images](#brain2image-converting-brain-signals-into-images)
 - [[SVM] SVM on E/MEG](#svm-svm-on-emeg)
     - [Across-subject offline decoding of motor imagery from MEG and EEG](#across-subject-offline-decoding-of-motor-imagery-from-meg-and-eeg)
+- [[模型]增量学习](#%E6%A8%A1%E5%9E%8B%E5%A2%9E%E9%87%8F%E5%AD%A6%E4%B9%A0)
+- [[classification]Across-subject offline decoding of motor imagery from MEG and EEG](#classificationacross-subject-offline-decoding-of-motor-imagery-from-meg-and-eeg)
+- [[classification]Decrypting wrist movement from MEG signal using SVM classifier](#classificationdecrypting-wrist-movement-from-meg-signal-using-svm-classifier)
 
 <!-- /TOC -->
 
@@ -114,3 +118,10 @@ MEG数据的分类(例如，Gramfort等人，2013b；Westner等人，2018年)。
 
 ![增量学习解决思路.png](./pics/增量学习解决思路.png)
 
+# [classification]Across-subject offline decoding of motor imagery from MEG and EEG
+
+二分类都是，meg的mi数据分类差不多在60-70（组内不是组间）
+
+# [classification]Decrypting wrist movement from MEG signal using SVM classifier
+
+手腕运动四分类，用的svm 34的准确率，也是组间。最好的效果会有46.9的准确率
